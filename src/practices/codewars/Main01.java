@@ -1,6 +1,6 @@
 package practices.codewars;
 
-public class Main extends Thread {
+public class Main01 extends Thread {
 /*  public static int amount = 0;
   public static long startTime = System.currentTimeMillis();
 
@@ -31,7 +31,7 @@ public class Main extends Thread {
 
   public static void main(String[] args) throws InterruptedException {
 
-    Main thread = new Main();
+    Main01 thread = new Main01();
     System.out.println(thread.getState());
     System.out.println("Start1: " + (System.currentTimeMillis() - startTime));
     thread.start();
@@ -62,4 +62,9 @@ public class Main extends Thread {
       }
     }
   }
+
+
+
+
+
 }
