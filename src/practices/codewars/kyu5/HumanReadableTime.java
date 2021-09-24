@@ -18,6 +18,20 @@ public class HumanReadableTime {
     int h = seconds/60/60;
     int min = seconds/60%60;
     int sec = seconds%60;
-    return String.format("%02d:%02d:%02d",h,min,sec);
+    //public static String format(String format, Object... args)
+    //format - A format string as per Class Formatter
+    return String.format("%02d:%05d:%03d",h,min,sec);
+  }
+
+  public static void main(String[] args) {
+    int secs = 35048;
+    System.out.println(makeReadable(secs));
+    System.out.println(makeReadable_alternatively(secs));
+
+
+    double qqq = 25 + 2d/3;
+    System.out.println(qqq);
+    String qqqStr = String.format("%07.2f", qqq);
+    System.out.println(qqqStr);
   }
 }
