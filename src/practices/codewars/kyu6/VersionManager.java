@@ -15,11 +15,15 @@ public class VersionManager {
 
   public VersionManager() {
     setParameters(INITIAL_VERSION);
-    this.versionHistory.add(this.release());
+    addToVersionHistory();
   }
 
   public VersionManager(String version) {
     setParameters(version);
+    addToVersionHistory();
+  }
+
+  private void addToVersionHistory(){
     this.versionHistory.add(this.release());
   }
 
@@ -48,20 +52,20 @@ public class VersionManager {
     this.majorParam++;
     this.minorParam = 0;
     this.patchParam = 0;
-    this.versionHistory.add(this.release());
+    addToVersionHistory();
     return this;
   }
 
   public VersionManager minor(){
     this.minorParam++;
     this.patchParam = 0;
-    this.versionHistory.add(this.release());
+    addToVersionHistory();
     return this;
   }
 
   public VersionManager patch(){
     this.patchParam++;
-    this.versionHistory.add(this.release());
+    addToVersionHistory();
     return this;
   }
 
@@ -71,7 +75,7 @@ public class VersionManager {
       throw new Exception("Cannot rollback!");
     }
     this.versionHistory.remove(versionHistorySize-1);
-    setParameters(this.versionHistory.get(versionHistorySize - 2));
+    setParameters(this.versionHistory.get(versionHistorySize-2));
     return this;
   }
 
