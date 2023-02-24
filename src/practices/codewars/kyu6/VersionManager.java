@@ -34,11 +34,10 @@ public class VersionManager {
       List<String> params = Arrays.stream(version.split("\\."))
           .limit(3)
           .collect(Collectors.toList());
-      if (params.size() != params.stream()
-          .map(s-> s.matches("[0-9]+"))
-          .filter(d-> d)
-          .count()){
-        throw new IllegalArgumentException("Error occured while parsing version!");
+      for (String param: params) {
+        if (!param.matches("[0-9]+")){
+          throw new IllegalArgumentException("Error occured while parsing version!");
+        }
       }
       params.add("0");
       params.add("0");
