@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class VersionManager {
 
-  private final List<String> versionHistory = new ArrayList<>();
   private static final String INITIAL_VERSION = "0.0.1";
+  private final List<String> versionHistory = new ArrayList<>();
   private int majorParam;
   private int minorParam;
   private int patchParam;
@@ -41,29 +41,30 @@ public class VersionManager {
       }
       params.add("0");
       params.add("0");
-      this.majorParam = Integer.parseInt(params.get(0));
-      this.minorParam = Integer.parseInt(params.get(1));
-      this.patchParam = Integer.parseInt(params.get(2));
+      setParameters(Integer.parseInt(params.get(0)), Integer.parseInt(params.get(1)), Integer.parseInt(params.get(2)));
     }
   }
 
+  private void setParameters(int majorParam, int minorParam, int patchParam){
+    this.majorParam = majorParam;
+    this.minorParam = minorParam;
+    this.patchParam = patchParam;
+  }
+
   public VersionManager major(){
-    this.majorParam++;
-    this.minorParam = 0;
-    this.patchParam = 0;
+    setParameters(this.majorParam+1,0,0);
     addToVersionHistory();
     return this;
   }
 
   public VersionManager minor(){
-    this.minorParam++;
-    this.patchParam = 0;
+    setParameters(this.majorParam, this.minorParam+1, 0);
     addToVersionHistory();
     return this;
   }
 
   public VersionManager patch(){
-    this.patchParam++;
+    setParameters(this.majorParam, this.minorParam, this.patchParam+1);
     addToVersionHistory();
     return this;
   }
