@@ -1,8 +1,9 @@
 package practices.codewars.kyu3;
 
+import java.util.Arrays;
+
 public class MakeASpiral {
   public static int[][] spiralize (int size){
-    System.out.println("Rozmiar to:" + size);
     int[][] resultArray = new int[size][size];
     resultArray[0][0] = 1;
     int[] currentPosition = {0,0,1};
@@ -19,17 +20,15 @@ public class MakeASpiral {
   }
 
   private static boolean canTurnRight(int[][] array, int[] position){
-    int[] positionWithNewDirection = new int[3];
-    positionWithNewDirection[0] = position[0];
-    positionWithNewDirection[1] = position[1];
-    positionWithNewDirection[2] = (position[2]+1)%4;
-    boolean condition1 = canMoveForward(array, positionWithNewDirection);
+    int[] positionWithNewDirection = Arrays.copyOf(position, position.length);
+    positionWithNewDirection[2] = getIncreasedDirection(position[2]);
+    boolean canMoveForward = canMoveForward(array, positionWithNewDirection);
 
-    int[] nextStepPosition = getNewPosition(position, 1, (position[2]+1)%4);
-    int[] finalPosition = getNewPosition(nextStepPosition, 1, (nextStepPosition[2]+1)%4);
-    boolean condition2 = array[finalPosition[0]][finalPosition[1]] == 0;
+    int[] firstStepPosition = getNewPosition(position, 1, getIncreasedDirection(position[2]));
+    int[] targetPosition = getNewPosition(firstStepPosition, 1, getIncreasedDirection(firstStepPosition[2]));
+    boolean zeroOnTargetPosition = array[targetPosition[0]][targetPosition[1]] == 0;
 
-    return condition1 & condition2;
+    return canMoveForward & zeroOnTargetPosition;
   }
 
   private static boolean canMoveForward(int[][] array, int[] position){
@@ -64,7 +63,11 @@ public class MakeASpiral {
   }
 
   private static void turnRight(int[] position){
-    position[2] = (position[2]+1)%4;
+    position[2] = getIncreasedDirection(position[2]);
+  }
+
+  private static int getIncreasedDirection (int direction){
+    return (direction+1)%4;
   }
 
   private static int[] getDirections(int direction){
